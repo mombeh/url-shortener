@@ -1,6 +1,7 @@
 import { query } from '../config/db.js';
 import logger from '../utils/logger.js';
 
+
 export default async function redirectHandler(req, res) {
   const { shortCode } = req.params;
 
@@ -11,7 +12,10 @@ export default async function redirectHandler(req, res) {
 
     if (result.rows.length === 0) {
       logger.warn(`Short URL not found: ${shortCode}`);
-      return res.status(404).json({ message: 'Short URL not found' });
+      const error = new Error('Short URL not found');
+      error.status = 404;
+      return next(error);
+
     }
 
     const { original_url, expires_at, hits } = result.rows[0];
@@ -19,7 +23,9 @@ export default async function redirectHandler(req, res) {
     // Step 2: Check expiration
     if (expires_at && new Date() > new Date(expires_at)) {
       logger.info(`Short URL expired: ${shortCode}`);
-      return res.status(410).json({ message: 'This link has expired' });
+      const error = new Error('This link has expired');
+      error.status = 404;
+      return next(error);
     }
 
     // Step 3: Increment hits
@@ -32,6 +38,8 @@ export default async function redirectHandler(req, res) {
     return res.redirect(302, original_url);
   } catch (error) {
     logger.error(`Error redirecting shortCode ${shortCode}:`, error);
-    return res.status(500).json({ message: 'Server error' });
+    const err = new Error('Server error');
+    error.status = 500;
+    return next(error);
   }
 }

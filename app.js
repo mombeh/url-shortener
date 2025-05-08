@@ -12,6 +12,7 @@ import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
 import shortenRouter from './routes/shorten.js';
 import redirectRouter from './routes/redirect.js'
+import myUrlsRouter from './routes/myUrls.js'
 
 const app = express();
 
@@ -34,23 +35,27 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/shorten', shortenRouter);
 app.use('/redirect', redirectRouter)
+app.use('/myUrls', myUrlsRouter);
 
-// catch 404 and forward to error handler
+// Catch 404 and forward to error handler
 app.use((req, res, next) => {
   const error = new Error('Not Found');
   error.status = 404;
   next(error);
 });
 
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+// Centralized error handler
+app.use((err, req, res, next) => {
+  const statusCode = err.status || 500;
+  const message = err.message || 'Internal Server Error';
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
+  // Log the error (optional: use winston)
+  console.error(`[ERROR] ${statusCode} - ${message}`);
+
+  res.status(statusCode).json({
+    error: message
+  });
+});
+
 
 export default app

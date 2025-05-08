@@ -10,7 +10,9 @@ export default async function shortenUrlHandler(req, res) {
   const userId = req.user.id
 
   if (!longUrl || !validator.isURL(longUrl)) {
-    return res.status(400).json({ message: "A valid longUrl is required" })
+    const error = new Error(' A valid url is required');
+    error.status = 404;
+    return next(error);
   }
 
   let shortCode = customCode || nanoid(7)
@@ -18,7 +20,9 @@ export default async function shortenUrlHandler(req, res) {
   // Validate custom code format (optional)
   const codeRegex = /^[a-zA-Z0-9_-]{4,20}$/
   if (customCode && !codeRegex.test(customCode)) {
-    return res.status(400).json({ message: "Custom code must be 4-20 characters, alphanumeric or - _" })
+    const error = new Error("Custom code must be 4-20 characters, alphanumeric or - _");
+    error.status = 404;
+    return next(error);
   }
 
   // Validate expiresAt (optional)
@@ -26,7 +30,9 @@ export default async function shortenUrlHandler(req, res) {
   if (expiresAt) {
     const date = new Date(expiresAt)
     if (isNaN(date.getTime()) || date < new Date()) {
-      return res.status(400).json({ message: "expiresAt must be a valid future date" })
+      const error = new Error("expiresAt must be a valid future date");
+      error.status = 404;
+      return next(error);
     }
     expiresAtDate = date
   }
@@ -34,7 +40,9 @@ export default async function shortenUrlHandler(req, res) {
   // Check for code conflicts
   const existing = await query("SELECT id FROM urls WHERE short_url = $1", [shortCode])
   if (existing.rows.length > 0) {
-    return res.status(409).json({ message: "Short code is already in use" })
+    const error = new Error('Short code is already in use');
+    error.status = 409;
+    return next(error);
   }
 
   // Insert into DB
@@ -53,6 +61,8 @@ export default async function shortenUrlHandler(req, res) {
 
   } catch (err) {
     logger.error("Error creating short URL", err)
-    return res.status(500).json({ message: "Error creating short URL" })
+    const error = new Error('Error creating short URL');
+    error.status = 500;
+    return next(error);
   }
 }
