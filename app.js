@@ -7,6 +7,8 @@ import morgan from 'morgan';
 import { fileURLToPath } from 'node:url';
 import winstonLogger from './utils/logger.js'
 import 'dotenv/config'
+import swaggerUi from "swagger-ui-express"
+import swaggerSpec from './swaggerConfig.js';
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -57,5 +59,6 @@ app.use((err, req, res, next) => {
   });
 });
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default app
