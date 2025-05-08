@@ -61,14 +61,14 @@ const initializeDbSchema = async () => {
 
         await client.query(`
       CREATE TABLE IF NOT EXISTS urls (
-       id SERIAL PRIMARY KEY,
-       user_id UUID REFERENCES users(id),
-       short_url TEXT UNIQUE NOT NULL,
-       original_url TEXT NOT NULL,
-       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-       expires_at TIMESTAMPTZ,
-       hits INTEGER DEFAULT 0
-     );
+        id SERIAL PRIMARY KEY,
+        short_url TEXT UNIQUE NOT NULL,
+        original_url TEXT NOT NULL,
+        user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        expires_at TIMESTAMP,
+        hits INTEGER DEFAULT 0
+      );
     `)
         logger.info('URLs table has been created')
 
