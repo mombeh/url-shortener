@@ -26,5 +26,5 @@ A minimalistic yet full-featured backend application for shortening URLs, tracki
 
 1. **Clone the repo**
    ```bash
-   git clone git@github.com:mombeh/booking-api.git
+   git clone git@github.com:mombeh/url-shortener.git
    cd url-shortener
