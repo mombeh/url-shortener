@@ -1,12 +1,15 @@
+//app.js
 import createError from 'http-errors';
 import express from 'express';
 import path, {dirname} from 'node:path'
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { fileURLToPath } from 'node:url';
+import winstonLogger from './utils/logger.js'
+import 'dotenv/config'
 
-import indexRouter from './routes/index';
-import usersRouter from './routes/users';
+import indexRouter from './routes/index.js';
+import usersRouter from './routes/users.js';
 
 const app = express();
 

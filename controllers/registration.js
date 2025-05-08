@@ -1,3 +1,4 @@
+//controllers/registeration.js
 import { query } from "../config/db.js";
 import logger from "../utils/logger.js";
 import bcrypt from "bcryptjs"
