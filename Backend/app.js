@@ -9,6 +9,7 @@ import winstonLogger from './utils/logger.js'
 import 'dotenv/config'
 import swaggerUi from "swagger-ui-express"
 import swaggerSpec from './swaggerConfig.js';
+import cors from 'cors'
 
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
@@ -26,6 +27,7 @@ const morganFormat = process.env.NODE_ENV === "production" ? "dev" : 'combined'
 app.use(morgan(morganFormat, { stream: winstonLogger.stream }));
 
 // view engine setup
+app.use(cors())
 app.set('view engine', 'jade');
 
 app.use(express.json());
@@ -38,6 +40,12 @@ app.use('/users', usersRouter);
 app.use('/api/shorten', shortenRouter);
 app.use('/redirect', redirectRouter)
 app.use('/myUrls', myUrlsRouter);
+
+
+app.use(cors({
+  origin: 'http://localhost:300', 
+  credentials: true
+}));
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
