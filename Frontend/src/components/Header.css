@@ -1,0 +1,25 @@
+/* src/components/Header.css */
+
+.header {
+    background: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+  }
+  
+  .logo {
+    margin: 0;
+  }
+  
+  .nav {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .link {
+    color: white;
+    text-decoration: none;
+  }
+  
