@@ -30,15 +30,11 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-
-      {success && <p style={{ color: 'green' }}>{success}</p>}  {/* Success message */}
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Error message */}
+    <div className='register'>
+      <h3>Register</h3>
 
       <form onSubmit={handleRegister}>
-        <div>
+        <div className='labels'>
           <label>First Name:</label>
           <input
             type="text"
@@ -48,7 +44,7 @@ function Register() {
           />
         </div>
 
-        <div>
+        <div className='labels'>
           <label>Last Name:</label>
           <input
             type="text"
@@ -58,7 +54,7 @@ function Register() {
           />
         </div>
 
-        <div>
+        <div className='labels'>
           <label>Email:</label>
           <input
             type="email"
@@ -68,7 +64,7 @@ function Register() {
           />
         </div>
 
-        <div>
+        <div className='labels'>
           <label>Password:</label>
           <input
             type="password"
@@ -78,8 +74,13 @@ function Register() {
           />
         </div>
 
-        <button type="submit">Register</button>
+        <button type="submit" className='btn'>Register</button>
       </form>
+
+      {success && <p style={{ color: 'green' }}>{success}</p>}  {/* Success message */}
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Error message */}
+
     </div>
   );
 }

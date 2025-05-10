@@ -23,20 +23,32 @@ function Login() {
       if (!res.ok) throw new Error(data.message || 'Login failed');
 
       localStorage.setItem('token', data.token);
-      navigate('/shorten'); // Redirect to home or another page
+      navigate('/api/shorten'); // Redirect to home or another page
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Login</h2>
+    <div className='login'>
+        <form onSubmit={handleLogin}>
+      <h3>Login</h3>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Email" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Password" />
-      <button type="submit">Login</button>
+      <div className='labels'>
+      <label htmlFor="">Email:</label>
+      <input type="email" value={email} 
+      onChange={(e) => setEmail(e.target.value)} 
+      required placeholder="Email" />
+      </div>
+      <div className='labels'>
+      <label htmlFor="">Passwor:</label>
+      <input type="password" value={password} 
+      onChange={(e) => setPassword(e.target.value)} 
+      required placeholder="Password" />
+      </div>
+      <button type="submit" className='btn'>Login</button>
     </form>
+    </div>
   );
 }
 

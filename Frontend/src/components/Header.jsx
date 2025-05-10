@@ -5,7 +5,7 @@ import './Header.css'; // import the CSS file
 function Header() {
   return (
     <header className="header">
-      <h1 className="logo">URL Shortener</h1>
+     <img src="https://images.softwaresuggest.com/software_logo/primelink-20240917014551.png" alt="" />
       <nav className="nav">
         <Link to="/" className="link">Home</Link>
         <Link to="/register" className="link">Register</Link>

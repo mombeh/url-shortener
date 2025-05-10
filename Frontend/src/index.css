@@ -1,4 +1,88 @@
-:root {
+src/App.css
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+}
+
+.navbar {
+  background: #333;
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.navbar a, .navbar button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.home {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #9bd9f1;
+  box-shadow: 0 3px 4px #0000001a;
+  border-radius: 10px;
+
+}
+
+.labels{
+  display: flex;
+  flex-direction: column;
+  width:300px;
+  padding: 0.5rem;
+}
+
+input {
+  padding: 7px;
+  border: none;
+  border: 1px solid #dbd9d9;
+  border-radius: 3px;
+}
+
+.btn {
+  padding: 8px;
+  border: none;
+  border: 1px solid #dbd9d9;
+  width: 300px;
+  padding: 0.5rem;
+  margin-left: 7px;
+  background-color: #9bd9f1;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 3px;
+}
+
+.register,
+.login{
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+h3 {
+  font-weight: bolder;
+  font-size: 40px;
+  color: #393737;
+  text-align: center;
+}
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -22,13 +106,6 @@ a:hover {
   color: #535bf2;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
 
 h1 {
   font-size: 3.2em;
@@ -65,4 +142,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

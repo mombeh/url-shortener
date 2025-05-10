@@ -1,16 +1,15 @@
-/* src/components/Header.css */
-
 .header {
-    background: #333;
-    padding: 10px;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    justify-self: center;
+    width: 100%;
   }
   
-  .logo {
-    margin: 0;
+  img {
+    width: 80px;
+    height: 80px;
   }
   
   .nav {
@@ -21,5 +20,12 @@
   .link {
     color: white;
     text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    font-family: sans-serif;
+  }
+  
+  .link:hover {
+    color: #f58c31;
   }
   

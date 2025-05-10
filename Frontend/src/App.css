@@ -1,25 +1,5 @@
-/* src/App.css */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f9f9f9;
-}
 
-.navbar {
-  background: #333;
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.navbar a, .navbar button {
-  color: #fff;
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
+/*
 .auth-form {
   max-width: 400px;
   margin: 50px auto;
@@ -42,4 +22,4 @@ body {
   color: white;
   border: none;
   cursor: pointer;
-}
+} */
