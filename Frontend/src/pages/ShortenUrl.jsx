@@ -41,7 +41,7 @@ function ShortenUrl() {
   };
 
   return (
-    <div>
+    <div className='shorten'>
       <h2>Shorten Your URL</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -50,16 +50,17 @@ function ShortenUrl() {
           onChange={(e) => setLongUrl(e.target.value)}
           placeholder="Enter the long URL"
           required
+          style={{ width: '400px', padding: '9px'}}
         />
-        <button type="submit">Shorten URL</button>
+        <button type="submit" className='button'>Shorten URL</button>
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {shortUrl && (
-        <div>
+        <div className='short'>
           <p>Your shortened URL: <a href={shortUrl} target="_blank" rel="noopener noreferrer">{shortUrl}</a></p>
-          <button onClick={handleCopy}>Copy</button>
+          <button onClick={handleCopy} className='copy'>Copy</button>
         </div>
       )}
     </div>
