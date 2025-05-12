@@ -2,7 +2,7 @@ import { query } from '../config/db.js';
 import logger from '../utils/logger.js';
 
 
-export default async function redirectHandler(req, res) {
+export default async function redirectHandler(req, res, next) {
   const { shortCode } = req.params;
 
   try {
@@ -15,7 +15,6 @@ export default async function redirectHandler(req, res) {
       const error = new Error('Short URL not found');
       error.status = 404;
       return next(error);
-
     }
 
     const { original_url, expires_at, hits } = result.rows[0];

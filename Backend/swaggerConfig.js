@@ -40,15 +40,15 @@ const options = {
                 URL: {
                     type: 'object',
                     properties: {
-                        id: { type: 'string', description: 'URL ID' },
-                        short_url: { type: 'string', description: 'Short url' },
-                        original_url: { type: 'string', description: 'The owners url' },
-                        user_id: { type: 'string', format: 'uuid', description: 'ID of the user who owns the url' },
-                        created_at: { type: 'string', format: 'date-time', description: 'Timestamp of url creation' },
-                        expires_at: { type: 'string', format: 'date-time', description: 'Timestamp of when url expires' },
+                      id: { type: 'string', description: 'URL ID' },
+                      short_url: { type: 'string', description: 'Short url' },
+                      original_url: { type: 'string', description: 'The original URL' },
+                      user_id: { type: 'string', format: 'uuid', description: 'ID of the user who owns the url' },
+                      created_at: { type: 'string', format: 'date-time', description: 'Timestamp of URL creation' },
+                      expires_at: { type: 'string', format: 'date-time', description: 'When the URL expires' },
                     },
-                    required: ['id', 'user_id', 'title', 'description', 'created_at', 'updated_at']
-                },
+                    required: ['id', 'user_id', 'original_url', 'short_url', 'created_at']
+                  },               
                 Error: {
                     type: 'object',
                     properties: {

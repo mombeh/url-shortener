@@ -5,7 +5,7 @@ import logger from "../utils/logger.js"
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:3000"
 
-export default async function shortenUrlHandler(req, res) {
+export default async function shortenUrlHandler(req, res, next) {
   const { longUrl, customCode, expiresAt } = req.body
   const userId = req.user.id
 
@@ -18,7 +18,7 @@ export default async function shortenUrlHandler(req, res) {
   let shortCode = customCode || nanoid(7)
 
   // Validate custom code format (optional)
-  const codeRegex = /^[a-zA-Z0-9_-]{4,20}$/
+  const codeRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z0-9_-]{5,15}$/;
   if (customCode && !codeRegex.test(customCode)) {
     const error = new Error("Custom code must be 4-20 characters, alphanumeric or - _");
     error.status = 404;
@@ -56,7 +56,7 @@ export default async function shortenUrlHandler(req, res) {
 
     return res.status(201).json({
       shortCode,
-      shortUrl: `${BASE_URL}/${shortCode}`
+      shortUrl: `${BASE_URL}/redirected to/${shortCode}`
     })
 
   } catch (err) {
