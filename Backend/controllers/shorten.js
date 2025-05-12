@@ -56,7 +56,7 @@ export default async function shortenUrlHandler(req, res, next) {
 
     return res.status(201).json({
       shortCode,
-      shortUrl: `${BASE_URL}/redirected to/${shortCode}`
+      shortUrl: `${BASE_URL}/redirect/${shortCode}`
     })
 
   } catch (err) {
