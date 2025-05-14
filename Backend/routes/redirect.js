@@ -1,3 +1,4 @@
+//redirect
 import express from 'express';
 import redirectHandler from '../controllers/redirect.js';
 
