@@ -13,7 +13,9 @@ export default async function registerHandler(req, res, next) {
 
     if (userCheckResult.rows.length > 0) {
       logger.warn(`Registrationg attempt failed: Email already exists - ${email}`)
-      return res.status(409).json({ message: "Email already in use" })
+      const error = new Error('Email already in use');
+      error.status = 409;
+      return next(error);
     }
     const passwordHash = await bcrypt.hash(password, HASH_SALT)
     logger.debug(`Password hashed for email: ${email}`)

@@ -13,7 +13,9 @@ export default async function analyticsHandler(req, res) {
     const result = await query(sql, [shortCode, userId]);
 
     if (result.rows.length === 0) {
-      return res.status(403).json({ message: 'You do not have access to this URL\'s stats' });
+      const error = new Error('You do not have access to this URL\'s stats');
+      error.status = 403;
+      return next(error);
     }
 
     const data = result.rows[0];
@@ -27,8 +29,10 @@ export default async function analyticsHandler(req, res) {
       expiresAt: data.expires_at
     });
 
-  } catch (error) {
+  } catch (err) {
     console.error("Analytics error:", error);
-    return res.status(500).json({ message: 'Server error' });
+    const error = new Error('Server error');
+    error.status = 500;
+    return next(error)
   }
 }

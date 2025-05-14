@@ -1,7 +1,7 @@
 import { query } from '../config/db.js';
 import logger from '../utils/logger.js';
 
-export default async function getUserUrls(req, res) {
+export default async function getUserUrls(req, res, next) {
   const userId = req.user.id;
 
   try {
@@ -19,8 +19,10 @@ export default async function getUserUrls(req, res) {
     const result = await query(sql, [userId]);
 
     return res.status(200).json({ urls: result.rows });
-  } catch (error) {
+  } catch (err) {
     logger.error("Error fetching user's URLs:", error);
-    return res.status(500).json({ message: 'Server error fetching URLs' });
+    const error = new Error('Server error fetching URLs');
+    error.status = 500;
+    return next(error);
   }
 }

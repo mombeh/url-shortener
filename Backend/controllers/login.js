@@ -13,7 +13,9 @@ export default async function loginHandler(req, res, next) {
 
     if (userResult.rowCount === 0) {
       logger.warn(`Login attempt failed: User not found - ${email}`)
-      return res.status(401).json({ message: 'Invalid Credentials' })
+      const error = new Error('Invalid Credentials');
+      error.status = 401;
+      return next(error);
     }
     const user = userResult.rows[0]
 
@@ -21,7 +23,9 @@ export default async function loginHandler(req, res, next) {
 
     if (!isPassswordMatch) {
       logger.warn(`Login attempt failed: Incorrect password - ${email}`)
-      return res.status(401).json({ message: "Invalid password" })
+      const error = new Error('Invalid Password');
+      error.status = 401;
+      return next(error);
     }
     const payload = {
       user: {
@@ -49,8 +53,10 @@ export default async function loginHandler(req, res, next) {
           }
         })
       })
-  } catch (error) {
+  } catch (err) {
     logger.error(`Error during login process for ${email}: `, error)
-    res.status(500).json({ message: error.message || "Server error during login" })
+    const error = new Error('Server error during login');
+    error.status = 500;
+    return next(error);
   }
 }
