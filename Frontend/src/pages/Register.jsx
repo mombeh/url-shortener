@@ -31,7 +31,7 @@ export default function Register() {
       });
       
       setSuccessMessage("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 1500);
+      setTimeout(() => navigate("/users/login"), 1500);
 
     } catch (err) {
       setErrorMessage(err.response?.data?.message || "Registration failed.");

@@ -67,7 +67,17 @@ h2 {
   margin-top: 15%;
   padding: 1rem;
   max-width: 700px;
-  height: 600px;
+  height: 550px;
+  justify-self: center;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.contain {
+  margin-top: 15%;
+  padding: 1rem;
+  max-width: 700px;
+  height: 400px;
   justify-self: center;
   background-color: #fff;
   border-radius: 15px;
