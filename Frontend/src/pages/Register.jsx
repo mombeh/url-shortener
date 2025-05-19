@@ -1,88 +1,83 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+export default function Register() {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
-function Register() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [success, setSuccess] = useState(null); // State to store success message
-  const [error, setError] = useState(null); // State to store error message
+  const [errorMessage, setErrorMessage] = useState("");
+  // Add with errorMessage
+  const [successMessage, setSuccessMessage] = useState("");
+
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-    const res = await fetch('http://localhost:3000/users/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName, lastName, email, password })
-    });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrorMessage(""); // Clear message on input
+  };
 
-    if (res.ok) {
-      setSuccess('Registration successful! Redirecting to login...');
-      setError(null);  // Clear any previous error messages
-      setTimeout(() => navigate('/login'), 2000);  // Redirect to login after 2 seconds
-    } else {
-      const data = await res.json();
-      setError(data.message || 'Registration failed');
-      setSuccess(null);  // Clear success message if there is an error
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await fetch("http://localhost:3000/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
+      
+      setSuccessMessage("Registration successful! Redirecting to login...");
+      setTimeout(() => navigate("/login"), 1500);
+
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || "Registration failed.");
     }
   };
 
   return (
-    <div className='register'>
-      <h3>Register</h3>
-
-      <form onSubmit={handleRegister}>
-        <div className='labels'>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className='labels'>
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className='labels'>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className='labels'>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit" className='btn'>Register</button>
+    <div className="container">
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}className="labels">
+        <input
+          type="text"
+          name="firstName"
+          placeholder="First Name"
+          value={form.firstName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="lastName"
+          placeholder="Last Name"
+          value={form.lastName}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" className="btn">Register</button>
       </form>
-
-      {success && <p style={{ color: 'green' }}>{success}</p>}  {/* Success message */}
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}  {/* Error message */}
-
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 }
-
-export default Register;

@@ -1,55 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Login() {
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [errorMessage, setErrorMessage] = useState("");
+  // Add with errorMessage
+  const [successMessage, setSuccessMessage] = useState("");
+
   const navigate = useNavigate();
-  const [error, setError] = useState(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError(null)
-
-    try {
-      const res = await fetch('http://localhost:3000/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.message || 'Login failed');
-
-      localStorage.setItem('token', data.token);
-      navigate('/api/shorten'); // Redirect to home or another page
-    } catch (err) {
-      setError(err.message);
-    }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrorMessage("");
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      })
+  
+      const contentType = response.headers.get("content-type");
+      let data = {};
+  
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      }
+  
+      setSuccessMessage("Login successful!");
+      setTimeout(() => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+        navigate("/dashboard");
+      }, 1000);
+      
+    } catch (err) {
+      setErrorMessage(err.message || "Login failed.");
+    }
+  };
+  
   return (
-    <div className='login'>
-        <form onSubmit={handleLogin}>
-      <h3>Login</h3>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div className='labels'>
-      <label htmlFor="">Email:</label>
-      <input type="email" value={email} 
-      onChange={(e) => setEmail(e.target.value)} 
-      required placeholder="Email" />
-      </div>
-      <div className='labels'>
-      <label htmlFor="">Passwor:</label>
-      <input type="password" value={password} 
-      onChange={(e) => setPassword(e.target.value)} 
-      required placeholder="Password" />
-      </div>
-      <button type="submit" className='btn'>Login</button>
-    </form>
+    <div className="container">
+      <h2>Login</h2>
+      
+      <form onSubmit={handleSubmit} className="labels">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit" className="btn">Login</button>
+      </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 }
-
-export default Login;

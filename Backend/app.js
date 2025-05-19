@@ -27,8 +27,12 @@ const morganFormat = process.env.NODE_ENV === "production" ? "dev" : 'combined'
 app.use(morgan(morganFormat, { stream: winstonLogger.stream }));
 
 // view engine setup
-app.use(cors())
 app.set('view engine', 'jade');
+
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -42,10 +46,7 @@ app.use('/redirect', redirectRouter)
 app.use('/myUrls', myUrlsRouter);
 
 
-app.use(cors({
-  origin: 'http://localhost:3000', 
-  credentials: true
-}));
+
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {
