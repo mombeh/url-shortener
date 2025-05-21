@@ -1,4 +1,3 @@
-//app.js
 import dotenv from 'dotenv'
 dotenv.config()
 import createError from 'http-errors';

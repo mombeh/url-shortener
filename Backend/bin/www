@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
 import dotenv from "dotenv";
 dotenv.config();
 import debug from 'debug'
@@ -89,6 +86,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-  console.log(`🚀 Server running on port ${port}`);
+  console.log(`🚀 Server running on port ${bind}`);
 }
 startServer();
