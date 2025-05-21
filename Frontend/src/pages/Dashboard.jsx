@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:4000"
-console.log("Base URL:", Baseurl);
 
 export default function Dashboard() {
   const [longUrl, setLongUrl] = useState("");
