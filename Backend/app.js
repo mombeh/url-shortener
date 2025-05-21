@@ -1,4 +1,6 @@
 //app.js
+import dotenv from 'dotenv'
+dotenv.config()
 import createError from 'http-errors';
 import express from 'express';
 import path, {dirname} from 'node:path'
@@ -6,7 +8,7 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import { fileURLToPath } from 'node:url';
 import winstonLogger from './utils/logger.js'
-import 'dotenv/config'
+// import 'dotenv/config'
 import swaggerUi from "swagger-ui-express"
 import swaggerSpec from './swaggerConfig.js';
 import cors from 'cors'
@@ -30,17 +32,7 @@ app.use(morgan(morganFormat, { stream: winstonLogger.stream }));
 app.set('view engine', 'jade');
 
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'https://url-shortener-production-1de0.up.railway.app/'
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 
@@ -57,7 +49,7 @@ app.use('/redirect', redirectRouter)
 app.use('/myUrls', myUrlsRouter);
 
 
-
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

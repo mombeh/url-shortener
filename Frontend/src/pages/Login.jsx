@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+console.log(import.meta.env.VITE_BASE_URL);
 
 export default function Login() {
   const [form, setForm] = useState({

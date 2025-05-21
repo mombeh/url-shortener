@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
 
+const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+console.log("Base URL:", Baseurl);
 export default function Register() {
   const [form, setForm] = useState({
     firstName: "",
@@ -35,7 +36,7 @@ export default function Register() {
     }
   
     try {
-      const response = await fetch(`${Baseurl}/users/register`, {
+      const response = await fetch(`${Baseurl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -50,7 +51,7 @@ export default function Register() {
       }
   
       setSuccessMessage("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/users/login"), 1500);
+      setTimeout(() => navigate("/login"), 1500);
   
     } catch (err) {
       setErrorMessage(err.message || "Registration failed.");
