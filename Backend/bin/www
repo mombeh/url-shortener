@@ -3,9 +3,10 @@
 /**
  * Module dependencies.
  */
-
-import app from '../app.js';
+import dotenv from "dotenv";
+dotenv.config();
 import debug from 'debug'
+import app from '../app.js';
 import http from 'http';
 import { initializeDbSchema } from '../config/db.js';
 import winstonLogger from '../utils/logger.js'; 
