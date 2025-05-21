@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+
+
 export default function Dashboard() {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
@@ -21,7 +24,7 @@ export default function Dashboard() {
     setShortUrl("");
 
     try {
-      const response = await fetch("http://localhost:3000/api/shorten", {
+      const response = await fetch(`${Baseurl}/api/shorten`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

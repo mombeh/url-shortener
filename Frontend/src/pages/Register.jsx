@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+
 export default function Register() {
   const [form, setForm] = useState({
     firstName: "",
@@ -32,7 +35,7 @@ export default function Register() {
     }
   
     try {
-      const response = await fetch("http://localhost:3000/users/register", {
+      const response = await fetch(`${Baseurl}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

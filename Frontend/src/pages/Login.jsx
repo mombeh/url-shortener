@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const Baseurl = import.meta.env.VITE_BASE_URL || "http://localhost:3000"
+
 export default function Login() {
   const [form, setForm] = useState({
     email: "",
@@ -21,7 +23,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/users/login", {
+      const response = await fetch(`${Baseurl}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
