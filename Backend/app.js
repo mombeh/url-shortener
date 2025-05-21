@@ -30,9 +30,20 @@ app.use(morgan(morganFormat, { stream: winstonLogger.stream }));
 app.set('view engine', 'jade');
 
 app.use(cors({
-  origin: 'http://localhost:5173', 
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'https://url-shortener-production-1de0.up.railway.app/'
+    ];
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

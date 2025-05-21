@@ -48,7 +48,7 @@ export default function Dashboard() {
       }
 
       // Assuming your backend returns `shortCode` in the response
-      setShortUrl(`http://localhost:3000/redirect/${data.shortCode}`);
+      setShortUrl(`${Baseurl}/redirect/${data.shortCode}`);
       setLongUrl("");
     } catch (err) {
       setErrorMessage(err.message || "Failed to shorten URL");
