@@ -66,7 +66,7 @@ h2 {
   margin-top: 15%;
   padding: 1rem;
   width: 450px;
-  height: 550px;
+  height: 500px;
   justify-self: center;
   background-color: #fff;
   border-radius: 15px;
@@ -104,7 +104,7 @@ input {
   margin-left: -.6px;
   border: none;
   border: 1px solid #dbd9d9;
-  width: 400px;
+  width: 350px;
   background-color: #9bd9f1;
   color: #fff;
   font-size: 18px;
