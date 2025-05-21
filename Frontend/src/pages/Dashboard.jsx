@@ -25,7 +25,7 @@ export default function Dashboard() {
     setShortUrl("");
 
     try {
-      const response = await fetch(`${Baseurl}/users/login`, {
+      const response = await fetch(`${Baseurl}/api/shorten`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

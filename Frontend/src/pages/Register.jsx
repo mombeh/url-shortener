@@ -36,7 +36,7 @@ export default function Register() {
     }
   
     try {
-      const response = await fetch(`${Baseurl}/users/login`, {
+      const response = await fetch(`${Baseurl}/users/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
