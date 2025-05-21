@@ -8,9 +8,7 @@ import app from '../app.js';
 import debug from 'debug'
 import http from 'http';
 import { initializeDbSchema } from '../config/db.js';
-import winstonLogger from '../utils/logger.js'; // or whatever logger you use
-
-
+import winstonLogger from '../utils/logger.js'; 
 const logger = winstonLogger; // or `debug('appointment-booking-api:server')`
 const log = debug('url-shortener:server')
 
@@ -27,7 +25,7 @@ const startServer = async () => {
   try {
     logger.info(`Attempting to start server on port ${port}`);
     
-    await initializeDbSchema(); // initialize DB before starting server
+    await initializeDbSchema(); 
 
     server.listen(port);
     server.on('error', onError);
