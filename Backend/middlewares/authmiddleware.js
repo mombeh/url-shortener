@@ -14,7 +14,7 @@ const authMiddleware = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = decoded.user
+    req.user = decoded
     logger.debug(`Auth middleware: Token verified for user ID ${req.user.id}`)
     next()
   } catch (error) {

@@ -7,7 +7,7 @@ const registerValidator = Joi.object({
   lastName: Joi.string().min(3).max(30).required(),
   password: Joi.string().pattern(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#^(){}[\\]<>])[A-Za-z\\d@$!%*?&#^(){}[\\]<>]{8,}$')
   ).required().messages({
-    'string.pattern.base': 'Password must be at least 8 characters long and include uppercase, lowercase, digit, and special character.'
+    'string.pattern.base': 'Password must be at least 8 characters and include uppercase, lowercase, digit, and special character.'
   }),
   confirmPassword: Joi.ref('password'),
 })

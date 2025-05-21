@@ -18,25 +18,42 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrorMessage(""); // Clear message on input
   };
-
+  const isPasswordStrong = (password) => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return regex.test(password);
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    if (!isPasswordStrong(form.password)) {
+      setErrorMessage("Password must be at least 8 characters and include uppercase, lowercase, digit, and special character.");
+      return;
+    }
+  
     try {
-      await fetch("http://localhost:3000/users/register", {
+      const response = await fetch("http://localhost:3000/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify(form)
       });
-      
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Registration failed.");
+      }
+  
       setSuccessMessage("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/users/login"), 1500);
-
+  
     } catch (err) {
-      setErrorMessage(err.response?.data?.message || "Registration failed.");
+      setErrorMessage(err.message || "Registration failed.");
     }
   };
+  
 
   return (
     <div className="container">
