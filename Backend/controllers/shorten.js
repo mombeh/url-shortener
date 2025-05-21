@@ -3,7 +3,7 @@ import validator from "validator"
 import { query } from "../config/db.js"
 import logger from "../utils/logger.js"
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:3000"
+const BASE_URL = process.env.NODE_ENV ==='production'?process.env.BASE_URL:"http://localhost:4000"
 
 export default async function shortenUrlHandler(req, res, next) {
   const { longUrl, customCode, expiresAt } = req.body

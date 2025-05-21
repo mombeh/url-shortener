@@ -7,6 +7,8 @@ const HASH_SALT = 10
 
 export default async function registerHandler(req, res, next) {
   const { firstName, lastName, email, password } = req.body
+  logger.info("register")
+
   try {
     const userCheckQuery = 'SELECT email FROM users WHERE email = $1';
     const userCheckResult = await query(userCheckQuery, [email])
