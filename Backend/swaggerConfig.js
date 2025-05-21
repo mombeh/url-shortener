@@ -24,7 +24,7 @@ const options = {
                     description: 'Enter JWT Bearer token **_only_**'
                 },
             },
-            schemas: { // Define reusable schemas for request/response bodies
+            schemas: { 
                 User: {
                     type: 'object',
                     properties: {
@@ -63,7 +63,7 @@ const options = {
             },
         ],
     },
-    apis: ['./routes/*.js'], // Path to the API docs
+    apis: ['./routes/*.js'], 
 };
 
 const swaggerSpec = swaggerJsDoc(options);
