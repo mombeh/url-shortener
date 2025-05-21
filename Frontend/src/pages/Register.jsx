@@ -13,7 +13,7 @@ export default function Register() {
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  // Add with errorMessage
+
   const [successMessage, setSuccessMessage] = useState("");
 
   const navigate = useNavigate();
