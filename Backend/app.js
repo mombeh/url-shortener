@@ -30,10 +30,21 @@ app.use(morgan(morganFormat, { stream: winstonLogger.stream }));
 // view engine setup
 app.set('view engine', 'jade');
 
+const allowedOrigins = process.env.FRONTEND_URL.split(',');
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin: function (origin, callback) {
+    console.log('CORS request from origin:', origin);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.error('CORS blocked origin:', origin);
+      callback(new Error('CORS not allowed for this origin: ' + origin));
+    }
+  },
   credentials: true
 }));
+
 
 
 app.use(express.json());

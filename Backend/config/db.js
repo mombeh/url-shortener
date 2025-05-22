@@ -25,7 +25,7 @@ const pool = new Pool({
     database: NODE_ENV === "test" ? DB_NAME_TEST : DB_NAME,
     password: DB_PASSWORD,
     port: parseInt(DB_PORT, 10),
-    connectionTimeoutMillis: 10000
+    connectionTimeoutMillis: 2000
 })
 
 logger.info(`Database is configured for: ${DB_NAME}`)

@@ -25,18 +25,6 @@ export default async function shortenUrlHandler(req, res, next) {
     return next(error);
   }
 
-  // Validate expiresAt (optional)
-  let expiresAtDate = null
-  if (expiresAt) {
-    const date = new Date(expiresAt)
-    if (isNaN(date.getTime()) || date < new Date()) {
-      const error = new Error("expiresAt must be a valid future date");
-      error.status = 404;
-      return next(error);
-    }
-    expiresAtDate = date
-  }
-
   // Check for code conflicts
   const existing = await query("SELECT id FROM urls WHERE short_url = $1", [shortCode])
   if (existing.rows.length > 0) {
@@ -50,7 +38,7 @@ export default async function shortenUrlHandler(req, res, next) {
     await query(`
       INSERT INTO urls (short_url, original_url, user_id, created_at, expires_at, hits)
       VALUES ($1, $2, $3, NOW(), $4, 0)
-    `, [shortCode, longUrl, userId, expiresAtDate])
+    `, [shortCode, longUrl, userId])
 
     logger.info(`Short URL created for user ${userId}: ${shortCode}`)
 
