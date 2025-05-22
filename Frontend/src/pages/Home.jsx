@@ -16,7 +16,6 @@ export default function Home() {
         <ul>
           <li>Register/Login</li>
           <li>Shorten long URLs</li>
-          <li>View your previously shortened URLs</li>
         </ul>
       </div>
 
