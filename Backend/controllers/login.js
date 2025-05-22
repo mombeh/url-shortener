@@ -6,7 +6,6 @@ import jwt from "jsonwebtoken";
 
 export default async function loginHandler(req, res, next) {
   const { email, password } = req.body;
-
   try {
     const findUserSQL = `SELECT id, email, first_name, last_name, password FROM users WHERE email = $1`;
     const userResult = await query(findUserSQL, [email]);

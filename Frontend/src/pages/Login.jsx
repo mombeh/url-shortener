@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Baseurl = import.meta.env.VITE_BASE_URL 
+const Baseurl = import.meta.env.VITE_BASE_URL
 console.log(import.meta.env.VITE_BASE_URL);
 
 export default function Login() {
@@ -31,7 +31,6 @@ export default function Login() {
         },
         body: JSON.stringify(form)
       });
-
       const data = await response.json();
 
       if (!response.ok) {

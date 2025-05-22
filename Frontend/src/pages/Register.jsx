@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 
 const Baseurl = import.meta.env.VITE_BASE_URL 
-console.log("Base URL:", Baseurl);
 export default function Register() {
   const [form, setForm] = useState({
     firstName: "",
