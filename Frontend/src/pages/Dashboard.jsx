@@ -17,6 +17,7 @@ export default function Dashboard() {
       navigate("/login");
     }
   }, [token]);
+  console.log(token)
 
   const handleShorten = async (e) => {
     e.preventDefault();
