@@ -1,3 +1,4 @@
+//controllers/registeration.js
 import { query } from "../config/db.js";
 import logger from "../utils/logger.js";
 import bcrypt from "bcryptjs"
@@ -6,13 +7,17 @@ const HASH_SALT = 10
 
 export default async function registerHandler(req, res, next) {
   const { firstName, lastName, email, password } = req.body
+  logger.info("register")
+
   try {
     const userCheckQuery = 'SELECT email FROM users WHERE email = $1';
     const userCheckResult = await query(userCheckQuery, [email])
 
     if (userCheckResult.rows.length > 0) {
       logger.warn(`Registrationg attempt failed: Email already exists - ${email}`)
-      return res.status(409).json({ message: "Email already in use" })
+      const error = new Error('Email already in use');
+      error.status = 409;
+      return next(error);
     }
     const passwordHash = await bcrypt.hash(password, HASH_SALT)
     logger.debug(`Password hashed for email: ${email}`)

@@ -1,0 +1,28 @@
+import { query } from '../config/db.js';
+import logger from '../utils/logger.js';
+
+export default async function getUserUrls(req, res, next) {
+  const userId = req.user.id;
+
+  try {
+    const sql = `
+      SELECT short_url AS "shortCode",
+             original_url AS "longUrl",
+             created_at AS "createdAt",
+             expires_at AS "expiresAt",
+             hits AS "clicks"
+      FROM urls
+      WHERE user_id = $1
+      ORDER BY created_at DESC;
+    `;
+
+    const result = await query(sql, [userId]);
+
+    return res.status(200).json({ urls: result.rows });
+  } catch (err) {
+    logger.error("Error fetching user's URLs:", error);
+    const error = new Error('Server error fetching URLs');
+    error.status = 500;
+    return next(error);
+  }
+}

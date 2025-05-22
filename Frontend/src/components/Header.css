@@ -1,0 +1,14 @@
+.header {
+  /* color: white; */
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  /* align-items: center;
+  justify-self: center; */
+  width: 100%;
+}
+
+
+
+
+
