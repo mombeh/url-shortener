@@ -48,7 +48,7 @@ export default function Dashboard() {
       }
 
       // Assuming your backend returns `shortCode` in the response
-      setShortUrl(`${Baseurl}/redirect/${data.shortCode}`);
+      setShortUrl(`${Baseurl}/${data.shortCode}`);
       setLongUrl("");
     } catch (err) {
       setErrorMessage(err.message || "Failed to shorten URL");
@@ -77,10 +77,10 @@ export default function Dashboard() {
 
       {shortUrl && (
         <div className="short-url">
-          <p>Shortened URL:</p>
-          <a href={shortUrl} target="_blank" rel="noopener noreferrer">
+          <p>Shortened URL: <a href={shortUrl} target="_blank" rel="noopener noreferrer">
             {shortUrl}
-          </a>
+          </a></p>
+          
         </div>
       )}
     </div>
